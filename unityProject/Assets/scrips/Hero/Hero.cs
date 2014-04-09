@@ -37,7 +37,7 @@ public class Hero : MonoBehaviour
 
 		private void roll ()
 		{
-				if (Input.GetButton ("Jump")) {
+				if (Input.GetButton ("Jump") && AnimationUtils.animatorStateEquals (this.animator, AnimationEnum.RUNNING)) {
 						this.animator.SetTrigger ("rolling");
 				}
 

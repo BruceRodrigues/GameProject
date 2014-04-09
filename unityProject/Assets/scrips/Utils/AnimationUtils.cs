@@ -20,5 +20,10 @@ public class AnimationUtils
 						yield return null;
 				} while (animation.isPlaying);
 		}
+
+		public static bool animatorStateEquals (Animator animator, AnimationEnum state)
+		{
+				return animator.GetCurrentAnimatorStateInfo (0).nameHash == Animator.StringToHash (state.getName ());
+		}
 }
 
