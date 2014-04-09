@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\scrips\Animation\AnimationEnum.cs" />
+     <Compile Include="Assets\scrips\Game\GameController.cs" />
      <Compile Include="Assets\scrips\Hero\Hero.cs" />
      <Compile Include="Assets\scrips\Utils\AnimationUtils.cs" />
   </ItemGroup>
