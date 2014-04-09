@@ -4,7 +4,6 @@ using System.Collections;
 public class Hero : MonoBehaviour
 {
 
-
 		private float maxSpeed;
 
 		private float roolSpeed;
@@ -13,8 +12,6 @@ public class Hero : MonoBehaviour
 
 		private Animator animator;
 
-		private Animation rollingAnimation;
-
 		private bool rolling;
 
 		// Use this for initialization
@@ -22,8 +19,6 @@ public class Hero : MonoBehaviour
 		{
 
 				this.animator = GetComponent<Animator> ();
-
-				this.rollingAnimation = GetComponent<Animation> ();
 
 				this.maxSpeed = 5f;
 
@@ -36,7 +31,6 @@ public class Hero : MonoBehaviour
 		// Update is called once per frame
 		void Update ()
 		{
-	
 				this.roll ();
 				this.move ();
 		}
@@ -44,23 +38,13 @@ public class Hero : MonoBehaviour
 		private void roll ()
 		{
 				if (Input.GetButton ("Jump")) {
-						this.rolling = true;
-						AnimationUtils.waitToEnd (this.rollingAnimation);
-				} else {
-						this.rolling = false;
+						this.animator.SetTrigger ("rolling");
 				}
-
-				float movement = Input.GetAxis ("Horizontal");
-				this.animator.SetFloat ("speed", Mathf.Abs (movement));
-				this.rigidbody2D.velocity = new Vector2 (movement * this.roolSpeed, this.rigidbody2D.velocity.y);
-				this.animator.SetBool ("rolling", this.rolling);
-				this.rollingAnimation.Play ("rolling");
 
 		}
 
 		private void move ()
 		{
-
 				//Running State Control
 				float movement = Input.GetAxis ("Horizontal");
 				this.animator.SetFloat ("speed", Mathf.Abs (movement));

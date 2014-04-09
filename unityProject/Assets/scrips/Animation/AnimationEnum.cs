@@ -8,17 +8,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using System;
-using UnityEngine;
-using System.Collections;
 
-public class AnimationUtils
+public sealed class AnimationEnum
 {
 
-		public static IEnumerator waitToEnd (Animation animation)
+		private String name;
+
+		public static readonly AnimationEnum IDLE = new AnimationEnum ("idle");
+		public static readonly AnimationEnum RUNNING = new AnimationEnum ("running");
+		public static readonly AnimationEnum ROLLING = new AnimationEnum ("rolling");
+
+		public AnimationEnum (String name)
 		{
-				do {
-						yield return null;
-				} while (animation.isPlaying);
+				this.name = name;
 		}
+
+		public String getName ()
+		{
+				return this.name;
+		}
+
 }
 

@@ -1,9 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scrips\Hero\Hero.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scrips\Animation\Animation.cs">
     <Files>
-      <File FileName="Assets\scrips\Hero\Hero.cs" Line="42" Column="45" />
-      <File FileName="Assets\scrips\Utils\AnimationUtils.cs" Line="17" Column="17" />
+      <File FileName="Assets\scrips\Hero\Hero.cs" Line="22" Column="3" />
+      <File FileName="Assets\scrips\Utils\AnimationUtils.cs" Line="1" Column="1" />
+      <File FileName="Assets\scrips\Animation\Animation.cs" Line="15" Column="30" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
