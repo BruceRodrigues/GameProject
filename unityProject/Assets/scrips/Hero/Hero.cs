@@ -4,25 +4,19 @@ using System.Collections;
 public class Hero : MonoBehaviour
 {
 
-		private float maxSpeed;
+		private readonly float RUNSPEED = 0.05f;
 
-		private float roolSpeed;
+		private readonly float ROLLSPEED = 0.1f;
 
 		private bool facingRight;
 
 		private Animator animator;
-
-		private bool rolling;
 
 		// Use this for initialization
 		void Start ()
 		{
 
 				this.animator = GetComponent<Animator> ();
-
-				this.maxSpeed = 5f;
-
-				this.roolSpeed = 10f;
 
 				this.facingRight = true;
 	
@@ -38,7 +32,14 @@ public class Hero : MonoBehaviour
 		private void roll ()
 		{
 				if (Input.GetButtonDown ("Jump") && AnimationUtils.animatorStateEquals (this.animator, AnimationEnum.RUNNING)) {
-						this.animator.SetTrigger ("rolling");
+						int mult = 0;
+						if (this.facingRight) {
+								mult = 1;
+						} else {
+								mult = -1;
+						}
+						this.animator.SetTrigger ("roll");
+						this.rigidbody2D.transform.position += new Vector3 (ROLLSPEED * mult, 0, 0);
 				}
 
 		}
@@ -46,14 +47,26 @@ public class Hero : MonoBehaviour
 		private void move ()
 		{
 				//Running State Control
-				float movement = Input.GetAxis ("Horizontal");
-				this.animator.SetFloat ("speed", Mathf.Abs (movement));
-				this.rigidbody2D.velocity = new Vector2 (movement * this.maxSpeed, this.rigidbody2D.velocity.y);
-				if (movement > 0 && !this.facingRight) {
-						this.flip ();
-				} else if (movement < 0 && this.facingRight) {
-						this.flip ();
+				int mult = 0;
+				if (Input.GetKey (KeyCode.RightArrow)) {
+						this.animator.SetBool ("run", true);
+						if (this.facingRight) {
+								mult = 1;
+						} else {
+								this.flip ();
+						}
+				} else if (Input.GetKey (KeyCode.LeftArrow)) {
+						this.animator.SetBool ("run", true);
+						if (!this.facingRight) {
+								mult = -1;
+						} else {
+								this.flip ();
+						}
 				}
+				if (Input.GetKeyUp (KeyCode.RightArrow) || Input.GetKeyUp (KeyCode.LeftArrow)) {
+						this.animator.SetBool ("run", false);
+				}
+				this.rigidbody2D.transform.position += new Vector3 (RUNSPEED * mult, 0, 0);
 		}
 
 		private void flip ()
