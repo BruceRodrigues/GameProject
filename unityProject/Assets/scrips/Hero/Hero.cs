@@ -6,7 +6,7 @@ public class Hero : MonoBehaviour
 
 		private readonly float RUNSPEED = 0.05f;
 
-		private readonly float ROLLSPEED = 0.1f;
+		private readonly float ROLLSPEED = 0.04f;
 
 		private bool facingRight;
 
@@ -31,14 +31,16 @@ public class Hero : MonoBehaviour
 
 		private void roll ()
 		{
+				int mult = 0;
 				if (Input.GetButtonDown ("Jump") && AnimationUtils.animatorStateEquals (this.animator, AnimationEnum.RUNNING)) {
-						int mult = 0;
+						this.animator.SetTrigger ("roll");
+				}
+				if (AnimationUtils.animatorStateEquals (this.animator, AnimationEnum.ROLLING)) {
 						if (this.facingRight) {
 								mult = 1;
 						} else {
 								mult = -1;
 						}
-						this.animator.SetTrigger ("roll");
 						this.rigidbody2D.transform.position += new Vector3 (ROLLSPEED * mult, 0, 0);
 				}
 
