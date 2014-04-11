@@ -6,8 +6,6 @@ public class Hero : MonoBehaviour
 
 		public Transform hero;
 
-		private Transform groundCheck;		
-
 		private readonly float RUNSPEED = 0.05f;
 
 		private readonly float ROLLSPEED = 0.04f;
@@ -25,8 +23,6 @@ public class Hero : MonoBehaviour
 		// Use this for initialization
 		void Start ()
 		{
-				this.groundCheck = transform.Find ("groundCheck");
-
 				this.animator = hero.GetComponent<Animator> ();
 
 				this.facingRight = true;
@@ -42,19 +38,17 @@ public class Hero : MonoBehaviour
 		// Update is called once per frame
 		void Update ()
 		{
-				this.grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));				
-				this.inLadder = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ladder"));
-			
-				if (grounded && !inLadder) {		
+				if (grounded && !inLadder) {
 						this.roll ();
-				} else if (inLadder && !grounded) {
-						climb ();
-				} else if (!inLadder && !grounded) {
-						this.rigidbody2D.transform.position += new Vector3 (0, -RUNSPEED * 2, 0);
-				}			
-
+				}
 				this.move ();
 
+				if (inLadder)
+						this.climb ();
+
+				if (!grounded && !inLadder) {
+						this.rigidbody2D.gravityScale = 1;
+				}
 
 		}
 
@@ -100,10 +94,8 @@ public class Hero : MonoBehaviour
 				if (Input.GetKeyUp (KeyCode.RightArrow) || Input.GetKeyUp (KeyCode.LeftArrow)) {
 						run = false;
 				}
-				this.rigidbody2D.transform.position += new Vector3 (RUNSPEED * mult, 0, 0);			 
-				if (!grounded) {
-						run = false;
-				}
+				
+				this.rigidbody2D.transform.position += new Vector3 (RUNSPEED * mult, 0, 0);			 				
 
 				this.animator.SetBool ("run", run);
 		}
@@ -117,14 +109,46 @@ public class Hero : MonoBehaviour
 		}
 
 		private void climb ()
-		{
+		{	
 				int mult = 0;
+				
 				if (Input.GetKey (KeyCode.DownArrow)) {
-						mult = -1;
+						if (!grounded)
+								mult = -1;
 				} else if (Input.GetKey (KeyCode.UpArrow)) {
 						mult = 1;
 				}
+
 				this.rigidbody2D.transform.position += new Vector3 (0, RUNSPEED * mult, 0);
+
+
 		}
 
+		void OnTriggerEnter2D (Collider2D coll)
+		{
+				this.rigidbody2D.gravityScale = 0;
+				this.rigidbody2D.velocity = Vector2.zero;
+				if (coll.gameObject.tag == "ladder") {
+						inLadder = true;
+				}
+
+				if (coll.gameObject.tag == "ground") {
+						grounded = true;
+				}
+		}
+
+		void OnTriggerExit2D (Collider2D coll)
+		{
+				if (coll.gameObject.tag == "ladder") {
+						inLadder = false;
+				}
+
+				if (coll.gameObject.tag == "ground") {
+						grounded = false;
+				}
+		}
+		
+		
+		
+		
 }

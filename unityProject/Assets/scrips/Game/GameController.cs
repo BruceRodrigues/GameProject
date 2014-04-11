@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
 		void Awake ()
 		{
 				Application.targetFrameRate = 60;
-				Debug.Log ("AWAKE");
+				
 		}
 
 		void Update ()
