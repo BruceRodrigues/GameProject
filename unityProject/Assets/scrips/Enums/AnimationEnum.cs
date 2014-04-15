@@ -8,22 +8,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using System;
-using UnityEngine;
-using System.Collections;
 
-public class AnimationUtils
+public sealed class AnimationEnum
 {
 
-		public static IEnumerator waitToEnd (Animation animation)
+		public readonly String name;
+
+		public static readonly AnimationEnum IDLE = new AnimationEnum ("BaseLayer.idle");
+		public static readonly AnimationEnum RUNNING = new AnimationEnum ("BaseLayer.running");
+		public static readonly AnimationEnum ROLLING = new AnimationEnum ("BaseLayer.rolling");
+
+		public AnimationEnum (String name)
 		{
-				do {
-						yield return null;
-				} while (animation.isPlaying);
+				this.name = name;
 		}
 
-		public static bool animatorStateEquals (Animator animator, AnimationEnum state)
-		{
-				return animator.GetCurrentAnimatorStateInfo (0).nameHash == Animator.StringToHash (state.name);
-		}
 }
 

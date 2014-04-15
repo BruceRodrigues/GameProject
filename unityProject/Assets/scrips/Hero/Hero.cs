@@ -55,8 +55,8 @@ public class Hero : MonoBehaviour
 		private void roll ()
 		{
 				int mult = 0;
-				if (Input.GetButtonDown ("Jump") && AnimationUtils.animatorStateEquals (this.animator, AnimationEnum.RUNNING)) {
-						this.animator.SetTrigger ("roll");
+				if (Input.GetButtonDown (InputEnum.JUMP.name) && AnimationUtils.animatorStateEquals (this.animator, AnimationEnum.RUNNING)) {
+						this.animator.SetTrigger (AnimatorParameterEnum.ROLL.name);
 				}
 				if (AnimationUtils.animatorStateEquals (this.animator, AnimationEnum.ROLLING)) {
 						if (this.facingRight) {
@@ -97,7 +97,7 @@ public class Hero : MonoBehaviour
 				
 				this.rigidbody2D.transform.position += new Vector3 (RUNSPEED * mult, 0, 0);			 				
 
-				this.animator.SetBool ("run", run);
+				this.animator.SetBool (AnimatorParameterEnum.RUN.name, run);
 		}
 
 		private void flip ()
@@ -128,22 +128,22 @@ public class Hero : MonoBehaviour
 		{
 				this.rigidbody2D.gravityScale = 0;
 				this.rigidbody2D.velocity = Vector2.zero;
-				if (coll.gameObject.tag == "ladder") {
+				if (coll.gameObject.tag == TagEnum.LADDER.name) {
 						inLadder = true;
 				}
 
-				if (coll.gameObject.tag == "ground") {
+				if (coll.gameObject.tag == TagEnum.GROUND.name) {
 						grounded = true;
 				}
 		}
 
 		void OnTriggerExit2D (Collider2D coll)
 		{
-				if (coll.gameObject.tag == "ladder") {
+				if (coll.gameObject.tag == TagEnum.LADDER.name) {
 						inLadder = false;
 				}
 
-				if (coll.gameObject.tag == "ground") {
+				if (coll.gameObject.tag == TagEnum.GROUND.name) {
 						grounded = false;
 				}
 		}

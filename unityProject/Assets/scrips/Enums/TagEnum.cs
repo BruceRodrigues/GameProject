@@ -7,26 +7,16 @@
 //     o código for gerado novamente.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;
-
-public sealed class AnimationEnum
+public class TagEnum
 {
 
-		private String name;
+		public readonly string name;
 
-		public static readonly AnimationEnum IDLE = new AnimationEnum ("BaseLayer.idle");
-		public static readonly AnimationEnum RUNNING = new AnimationEnum ("BaseLayer.running");
-		public static readonly AnimationEnum ROLLING = new AnimationEnum ("BaseLayer.rolling");
+		public static readonly TagEnum LADDER = new TagEnum ("ladder");
+		public static readonly TagEnum GROUND = new TagEnum ("ground");
 
-		public AnimationEnum (String name)
+		public TagEnum (string name)
 		{
 				this.name = name;
 		}
-
-		public String getName ()
-		{
-				return this.name;
-		}
-
 }
-
