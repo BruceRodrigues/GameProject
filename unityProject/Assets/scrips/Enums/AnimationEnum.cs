@@ -17,6 +17,7 @@ public sealed class AnimationEnum
 		public static readonly AnimationEnum IDLE = new AnimationEnum ("BaseLayer.idle");
 		public static readonly AnimationEnum RUNNING = new AnimationEnum ("BaseLayer.running");
 		public static readonly AnimationEnum ROLLING = new AnimationEnum ("BaseLayer.rolling");
+		public static readonly AnimationEnum JUMPING = new AnimationEnum ("BaseLayer.jumping");
 
 		public AnimationEnum (String name)
 		{

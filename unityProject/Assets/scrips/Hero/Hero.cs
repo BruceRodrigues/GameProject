@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Hero : MonoBehaviour
+public class Hero : MonoBehaviour, ICoreInput
 {
 
 		public Transform hero;
@@ -9,6 +9,8 @@ public class Hero : MonoBehaviour
 		private readonly float RUNSPEED = 0.05f;
 
 		private readonly float ROLLSPEED = 0.04f;
+
+		private readonly float JUMPSPEED = 5f;
 
 		private bool facingRight;
 
@@ -32,41 +34,43 @@ public class Hero : MonoBehaviour
 				this.run = false;
 
 				this.inLadder = false;
-	
+
 		}
 	
 		// Update is called once per frame
 		void Update ()
 		{
-				if (grounded && !inLadder) {
-						this.roll ();
-				}
+				this.registerInputs ();
+
+				this.roll ();
+
+				this.jump ();
+
 				this.move ();
 
-				if (inLadder)
-						this.climb ();
-
-				if (!grounded && !inLadder) {
-						this.rigidbody2D.gravityScale = 1;
-				}
+//				this.climb ();
 
 		}
 
 		private void roll ()
 		{
 				int mult = 0;
-				if (Input.GetButtonDown (InputEnum.JUMP.name) && AnimationUtils.animatorStateEquals (this.animator, AnimationEnum.RUNNING)) {
-						this.animator.SetTrigger (AnimatorParameterEnum.ROLL.name);
-				}
 				if (AnimationUtils.animatorStateEquals (this.animator, AnimationEnum.ROLLING)) {
 						if (this.facingRight) {
 								mult = 1;
 						} else {
 								mult = -1;
 						}
+
 						this.rigidbody2D.transform.position += new Vector3 (ROLLSPEED * mult, 0, 0);
 				}
+		}
 
+		private void jump ()
+		{
+				if (AnimationUtils.animatorStateEquals (this.animator, AnimationEnum.JUMPING)) {
+						this.rigidbody2D.velocity = new Vector2 (0, this.JUMPSPEED);
+				}
 		}
 
 		private void move ()
@@ -111,22 +115,22 @@ public class Hero : MonoBehaviour
 		private void climb ()
 		{	
 				int mult = 0;
+
+				if (this.inLadder) {
 				
-				if (Input.GetKey (KeyCode.DownArrow)) {
-						if (!grounded)
-								mult = -1;
-				} else if (Input.GetKey (KeyCode.UpArrow)) {
-						mult = 1;
+						if (Input.GetKey (KeyCode.DownArrow)) {
+								if (!grounded)
+										mult = -1;
+						} else if (Input.GetKey (KeyCode.UpArrow)) {
+								mult = 1;
+						}
+
+						this.rigidbody2D.transform.position += new Vector3 (0, RUNSPEED * mult, 0);
 				}
-
-				this.rigidbody2D.transform.position += new Vector3 (0, RUNSPEED * mult, 0);
-
-
 		}
 
 		void OnTriggerEnter2D (Collider2D coll)
 		{
-				this.rigidbody2D.gravityScale = 0;
 				this.rigidbody2D.velocity = Vector2.zero;
 				if (coll.gameObject.tag == TagEnum.LADDER.name) {
 						inLadder = true;
@@ -147,8 +151,18 @@ public class Hero : MonoBehaviour
 						grounded = false;
 				}
 		}
-		
-		
-		
-		
+
+		//Override
+		public void registerInputs ()
+		{
+				//Roll
+				if (Input.GetButtonDown (InputEnum.ROLL.name) && AnimationUtils.animatorStateEquals (this.animator, AnimationEnum.RUNNING)) {
+						animator.SetTrigger (AnimatorParameterEnum.ROLL.name);
+				}
+
+				//Jump
+				if (Input.GetButtonDown (InputEnum.JUMP.name)) {
+						this.animator.SetTrigger (AnimatorParameterEnum.JUMP.name);
+				}
+		}
 }
