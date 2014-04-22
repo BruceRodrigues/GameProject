@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Hero : MonoBehaviour, ICoreInput
+public class Hero : ITangible, ICoreInput
 {
-
-		public Transform hero;
 
 		private readonly float RUNSPEED = 0.05f;
 
@@ -22,10 +20,17 @@ public class Hero : MonoBehaviour, ICoreInput
 
 		private Animator animator;
 
-		// Use this for initialization
-		void Start ()
+		int ab = 0;
+
+		public Hero () : base(50,10)
 		{
-				this.animator = hero.GetComponent<Animator> ();
+			
+		}
+
+		// Use this for initialization
+		public override void Start ()
+		{
+				this.animator = transform.GetComponent<Animator> ();
 
 				this.facingRight = true;
 
@@ -38,8 +43,9 @@ public class Hero : MonoBehaviour, ICoreInput
 		}
 	
 		// Update is called once per frame
-		void Update ()
+		public override void Update ()
 		{
+				ab = 1;
 				this.registerInputs ();
 
 				this.roll ();
@@ -48,6 +54,10 @@ public class Hero : MonoBehaviour, ICoreInput
 
 				this.move ();
 
+				if (this.weapon != null) {
+						this.weapon.Update ();
+				}
+
 //				this.climb ();
 
 		}
@@ -55,7 +65,7 @@ public class Hero : MonoBehaviour, ICoreInput
 		private void roll ()
 		{
 				int mult = 0;
-				if (AnimationUtils.animatorStateEquals (this.animator, AnimationEnum.ROLLING)) {
+				if (AnimationUtils.animatorStateEquals (this.animator, AnimationEnum.HERO_ROLLING)) {
 						if (this.facingRight) {
 								mult = 1;
 						} else {
@@ -68,7 +78,7 @@ public class Hero : MonoBehaviour, ICoreInput
 
 		private void jump ()
 		{
-				if (AnimationUtils.animatorStateEquals (this.animator, AnimationEnum.JUMPING)) {
+				if (AnimationUtils.animatorStateEquals (this.animator, AnimationEnum.HERO_JUMPING)) {
 						this.rigidbody2D.velocity = new Vector2 (0, this.JUMPSPEED);
 				}
 		}
@@ -115,7 +125,6 @@ public class Hero : MonoBehaviour, ICoreInput
 		private void climb ()
 		{	
 				int mult = 0;
-
 				if (this.inLadder) {
 				
 						if (Input.GetKey (KeyCode.DownArrow)) {
@@ -131,6 +140,8 @@ public class Hero : MonoBehaviour, ICoreInput
 
 		void OnTriggerEnter2D (Collider2D coll)
 		{
+
+				Debug.Log ("TRIGGER");
 				this.rigidbody2D.velocity = Vector2.zero;
 				if (coll.gameObject.tag == TagEnum.LADDER.name) {
 						inLadder = true;
@@ -156,13 +167,25 @@ public class Hero : MonoBehaviour, ICoreInput
 		public void registerInputs ()
 		{
 				//Roll
-				if (Input.GetButtonDown (InputEnum.ROLL.name) && AnimationUtils.animatorStateEquals (this.animator, AnimationEnum.RUNNING)) {
+				if (Input.GetButtonDown (InputEnum.ROLL.name) && AnimationUtils.animatorStateEquals (this.animator, AnimationEnum.HERO_RUNNING)) {
 						animator.SetTrigger (AnimatorParameterEnum.ROLL.name);
 				}
 
 				//Jump
 				if (Input.GetButtonDown (InputEnum.JUMP.name)) {
 						this.animator.SetTrigger (AnimatorParameterEnum.JUMP.name);
+				}
+				
+				//Attack
+				if (Input.GetButtonDown (InputEnum.ATTACK.name)) {
+						this.animator.SetTrigger (AnimatorParameterEnum.ATTACK.name);
+				}
+		}
+
+		public override void hit (int damage)
+		{
+				if (!AnimationUtils.animatorStateEquals (this.animator, AnimationEnum.HERO_ROLLING)) {
+						base.hit (damage);
 				}
 		}
 }

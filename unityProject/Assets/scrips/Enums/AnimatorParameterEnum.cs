@@ -8,7 +8,8 @@ public sealed class AnimatorParameterEnum
 
 		public static readonly AnimatorParameterEnum ROLL = new AnimatorParameterEnum ("roll");
 		public static readonly AnimatorParameterEnum RUN = new AnimatorParameterEnum ("run");
-		public static readonly AnimatorParameterEnum JUMP = new global::AnimatorParameterEnum ("jump");
+		public static readonly AnimatorParameterEnum JUMP = new AnimatorParameterEnum ("jump");
+		public static readonly AnimatorParameterEnum ATTACK = new AnimatorParameterEnum ("attack");
 
 		public AnimatorParameterEnum (string name)
 		{

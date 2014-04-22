@@ -14,10 +14,14 @@ public sealed class AnimationEnum
 
 		public readonly String name;
 
-		public static readonly AnimationEnum IDLE = new AnimationEnum ("BaseLayer.idle");
-		public static readonly AnimationEnum RUNNING = new AnimationEnum ("BaseLayer.running");
-		public static readonly AnimationEnum ROLLING = new AnimationEnum ("BaseLayer.rolling");
-		public static readonly AnimationEnum JUMPING = new AnimationEnum ("BaseLayer.jumping");
+		public static readonly AnimationEnum HERO_IDLE = new AnimationEnum ("HeroLayer.idle");
+		public static readonly AnimationEnum HERO_RUNNING = new AnimationEnum ("HeroLayer.running");
+		public static readonly AnimationEnum HERO_ROLLING = new AnimationEnum ("HeroLayer.rolling");
+		public static readonly AnimationEnum HERO_JUMPING = new AnimationEnum ("HeroLayer.jumping");
+
+		public static readonly AnimationEnum ENEMY_IDLE = new AnimationEnum ("BaseLayer.idle");
+		public static readonly AnimationEnum ENEMY_RUN = new AnimationEnum ("BaseLayer.run");
+		public static readonly AnimationEnum ENEMY_ATTACK = new AnimationEnum ("BaseLayer.attack");
 
 		public AnimationEnum (String name)
 		{

@@ -1,16 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scrips\Hero\Hero.cs">
     <Files>
-      <File FileName="Assets\scrips\Core\Input\ICoreInput.cs" Line="1" Column="1" />
-      <File FileName="Assets\scrips\Hero\Hero.cs" Line="152" Column="6" />
-      <File FileName="Assets\scrips\Utils\AnimationUtils.cs" Line="1" Column="1" />
-      <File FileName="Assets\scrips\Game\GameController.cs" Line="13" Column="1" />
-      <File FileName="Assets\scrips\Enums\AnimationEnum.cs" Line="20" Column="35" />
+      <File FileName="Assets\scrips\Weapons\API\IWeapon.cs" Line="50" Column="4" />
+      <File FileName="Assets\scrips\Hero\Hero.cs" Line="74" Column="4" />
+      <File FileName="Assets\scrips\Enums\AnimationEnum.cs" Line="21" Column="1" />
       <File FileName="Assets\scrips\Enums\AnimatorParameterEnum.cs" Line="1" Column="1" />
-      <File FileName="Assets\scrips\Enums\InputEnum.cs" Line="10" Column="40" />
       <File FileName="Assets\scrips\Enums\TagEnum.cs" Line="1" Column="1" />
-      <File FileName="Assets\scrips\Core\Input\CoreInput.cs" Line="68" Column="32" />
+      <File FileName="Assets\scrips\Weapons\WeaponsChest.cs" Line="1" Column="1" />
+      <File FileName="Assets\scrips\Weapons\ThrustWeapon.cs" Line="1" Column="1" />
+      <File FileName="Assets\scrips\API\ITangible.cs" Line="44" Column="28" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

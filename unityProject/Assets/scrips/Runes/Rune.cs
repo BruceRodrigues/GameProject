@@ -7,18 +7,24 @@
 //     o código for gerado novamente.
 // </auto-generated>
 //------------------------------------------------------------------------------
-public class TagEnum
+using System;
+public class Rune
 {
 
-		public readonly string name;
-
-		public static readonly TagEnum LADDER = new TagEnum ("ladder");
-		public static readonly TagEnum GROUND = new TagEnum ("ground");
-		public static readonly TagEnum HERO = new TagEnum ("Hero");
-		public static readonly TagEnum ENEMY = new TagEnum ("enemy");
-
-		public TagEnum (string name)
+		public enum Elemental
 		{
-				this.name = name;
+				FIRE,
+				THUNDER,
+				LIGHT,
+				DARK
+		}
+
+		private Elemental elemental;
+
+
+		public Rune (Elemental elemental)
+		{
+				this.elemental = elemental;
 		}
 }
+

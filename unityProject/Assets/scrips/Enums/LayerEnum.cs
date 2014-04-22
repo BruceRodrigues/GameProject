@@ -7,18 +7,17 @@
 //     o código for gerado novamente.
 // </auto-generated>
 //------------------------------------------------------------------------------
-public class TagEnum
+using System;
+public class LayerEnum
 {
 
-		public readonly string name;
+		public static LayerEnum TANGIBLE = new LayerEnum (11);
 
-		public static readonly TagEnum LADDER = new TagEnum ("ladder");
-		public static readonly TagEnum GROUND = new TagEnum ("ground");
-		public static readonly TagEnum HERO = new TagEnum ("Hero");
-		public static readonly TagEnum ENEMY = new TagEnum ("enemy");
+		public int number;
 
-		public TagEnum (string name)
+		public LayerEnum (int number)
 		{
-				this.name = name;
+				this.number = number;
 		}
 }
+
