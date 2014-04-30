@@ -12,6 +12,7 @@ public class LayerEnum
 {
 
 		public static LayerEnum TANGIBLE = new LayerEnum (11);
+		public static LayerEnum GROUND = new LayerEnum (8);
 
 		public int number;
 
