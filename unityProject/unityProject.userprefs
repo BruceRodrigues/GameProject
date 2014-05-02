@@ -1,12 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scrips\NPC\API\INPC.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scrips\NPC\API\DialogBox.cs">
     <Files>
-      <File FileName="Assets\scrips\Hero\Hero.cs" Line="162" Column="13" />
-      <File FileName="Assets\scrips\API\ITangible.cs" Line="6" Column="42" />
-      <File FileName="Assets\scrips\NPC\API\INPC.cs" Line="23" Column="37" />
-      <File FileName="Assets\scrips\Weapons\API\IWeapon.cs" Line="2" Column="1" />
-      <File FileName="Assets\scrips\NPC\API\DialogBox.cs" Line="30" Column="41" />
+      <File FileName="Assets\scrips\NPC\API\DialogBox.cs" Line="80" Column="96" />
+      <File FileName="Assets\scrips\Enums\AnimationEnum.cs" Line="28" Column="90" />
+      <File FileName="Assets\scrips\Game\GameController.cs" Line="28" Column="106" />
+      <File FileName="Assets\scrips\Game\DialogController.cs" Line="42" Column="5" />
+      <File FileName="Assets\scrips\Utils\AnimationUtils.cs" Line="26" Column="46" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

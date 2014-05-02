@@ -19,9 +19,13 @@ public sealed class AnimationEnum
 		public static readonly AnimationEnum HERO_ROLLING = new AnimationEnum ("HeroLayer.rolling");
 		public static readonly AnimationEnum HERO_JUMPING = new AnimationEnum ("HeroLayer.jumping");
 
-		public static readonly AnimationEnum ENEMY_IDLE = new AnimationEnum ("BaseLayer.idle");
-		public static readonly AnimationEnum ENEMY_RUN = new AnimationEnum ("BaseLayer.run");
-		public static readonly AnimationEnum ENEMY_ATTACK = new AnimationEnum ("BaseLayer.attack");
+		public static readonly AnimationEnum ENEMY_IDLE = new AnimationEnum ("Base Layer.idle");
+		public static readonly AnimationEnum ENEMY_RUN = new AnimationEnum ("Base Layer.run");
+		public static readonly AnimationEnum ENEMY_ATTACK = new AnimationEnum ("Base Layer.attack");
+
+		public static readonly AnimationEnum DIALOGBOX_HIDDEN = new AnimationEnum ("Base Layer.hidden");
+		public static readonly AnimationEnum DIALOGBOX_VISIBLE = new AnimationEnum ("Base Layer.visible");
+		public static readonly AnimationEnum DIALOGBOX_FADEIN = new AnimationEnum ("Base Layer.fadeIn");
 
 		public AnimationEnum (String name)
 		{

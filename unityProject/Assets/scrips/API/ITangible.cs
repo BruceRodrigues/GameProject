@@ -16,8 +16,6 @@ public abstract class ITangible : MonoBehaviour
 		protected int damage;
 		protected IWeapon weapon;
 
-		int debug = 0;
-
 		public ITangible (int hp, int damage)
 		{
 				this.hp = hp;
@@ -29,7 +27,6 @@ public abstract class ITangible : MonoBehaviour
 				this.hp = hp;
 				this.damage = damage;
 				this.weapon = weapon;
-				Physics2D.IgnoreLayerCollision (LayerEnum.GROUND.number, -1, false);
 		}
 
 		public bool isDead ()
@@ -39,9 +36,7 @@ public abstract class ITangible : MonoBehaviour
 
 		public virtual void hit (int damage)
 		{
-				Debug.Log ("HIT" + debug);
-				debug++;
-//				this.rigidbody2D.transform.position -= new Vector3 (0.5f, 0, 0);
+				Debug.Log ("HIT" + this.hp);
 				this.hp -= damage;
 		}
 
@@ -49,7 +44,7 @@ public abstract class ITangible : MonoBehaviour
 		{
 				this.weapon = weapon;
 		}
-	
+
 		public virtual void Start ()
 		{
 		}

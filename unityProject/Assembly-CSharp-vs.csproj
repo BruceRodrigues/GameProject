@@ -54,6 +54,7 @@
      <Compile Include="Assets\scrips\Enums\InputEnum.cs" />
      <Compile Include="Assets\scrips\Enums\LayerEnum.cs" />
      <Compile Include="Assets\scrips\Enums\TagEnum.cs" />
+     <Compile Include="Assets\scrips\Game\DialogController.cs" />
      <Compile Include="Assets\scrips\Game\GameController.cs" />
      <Compile Include="Assets\scrips\Hero\Hero.cs" />
      <Compile Include="Assets\scrips\NPC\API\DialogBox.cs" />

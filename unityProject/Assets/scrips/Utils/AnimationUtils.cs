@@ -21,6 +21,11 @@ public class AnimationUtils
 				} while (animation.isPlaying);
 		}
 
+		public static IEnumerator wait (int seconds)
+		{
+				yield return new WaitForSeconds (seconds);
+		}
+
 		public static bool animatorStateEquals (Animator animator, AnimationEnum state)
 		{
 				return animator.GetCurrentAnimatorStateInfo (0).nameHash == Animator.StringToHash (state.name);

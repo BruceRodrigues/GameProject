@@ -14,32 +14,41 @@ using System.Collections.Generic;
 public class INPC : MonoBehaviour
 {
 
-	private bool canSpeak;
+		private bool canSpeak;
 
-	public DialogBox dialogBox;
+		private string name;
 
-	public INPC ()
-	{
-		this.canSpeak = true;
-	}
+		public DialogBox dialogBox;
 
-	public bool hasSomethingToSay ()
-	{
-		return this.canSpeak;
-	}
-
-	public void OnTriggerEnter2D (Collider2D coll)
-	{
-		if (this.canSpeak && coll.gameObject.tag == TagEnum.HERO.name) {
-			this.dialogBox.enable ();
+		public INPC ()
+		{
+				this.canSpeak = true;
 		}
-	}
 
-	public void OnTriggerExit2D (Collider2D coll)
-	{
-		if (this.canSpeak) {
-			this.dialogBox.disable ();
+		public void Start ()
+		{
+				List<String> speak = new List<String> ();
+				speak.Add ("Diga isso!");
+				this.dialogBox.setDialog (speak);
 		}
-	}
+
+		public bool hasSomethingToSay ()
+		{
+				return this.canSpeak;
+		}
+
+		public void OnTriggerEnter2D (Collider2D coll)
+		{
+				if (this.canSpeak && coll.gameObject.tag == TagEnum.HERO.name) {
+						this.dialogBox.enable ();
+				}
+		}
+
+		public void OnTriggerExit2D (Collider2D coll)
+		{
+				if (this.canSpeak) {
+						this.dialogBox.disable ();
+				}
+		}
 }
 

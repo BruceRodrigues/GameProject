@@ -12,6 +12,7 @@ public class ThrustWeapon : IWeapon
 		// Use this for initialization
 		public override void Start ()
 		{
+				this.damage = 10;
 	
 		}
 	

@@ -11,6 +11,9 @@ public sealed class AnimatorParameterEnum
 		public static readonly AnimatorParameterEnum JUMP = new AnimatorParameterEnum ("jump");
 		public static readonly AnimatorParameterEnum ATTACK = new AnimatorParameterEnum ("attack");
 
+
+		public static readonly AnimatorParameterEnum DIALOGBOX_HEROIN = new AnimatorParameterEnum ("heroIn");
+
 		public AnimatorParameterEnum (string name)
 		{
 				this.name = name;

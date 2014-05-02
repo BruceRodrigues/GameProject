@@ -12,40 +12,77 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class DialogBox : MonoBehaviour
+public class DialogBox : MonoBehaviour, ICoreInput
 {
 
-	private List<String> dialogs;
+		private List<String> dialogs;
 
-	public SpriteRenderer SpriteRenderer;
+		public SpriteRenderer SpriteRenderer;
 
-	public DialogBox ()
-	{
-	}
+		private Animator animatorDialog;
 
-	public void Start ()
-	{
-		this.SpriteRenderer.enabled = false;
-	}
+		public DialogBox ()
+		{
+		}
 
-	public DialogBox (List<String> dialogs)
-	{
-		this.dialogs = dialogs;
-	}
+		public void Start ()
+		{
+				this.animatorDialog = this.GetComponent<Animator> ();
+				this.SpriteRenderer.enabled = false;
+		}
 
-	public String getDialog (int index)
-	{
-		return this.dialogs [index];
-	}
+		public void Update ()
+		{
+				this.registerInputs ();
 
-	public void enable ()
-	{
-		this.SpriteRenderer.enabled = true;
-	}
+				if (AnimationUtils.animatorStateEquals (this.animatorDialog, AnimationEnum.DIALOGBOX_HIDDEN)) {
+						this.SpriteRenderer.enabled = false;
+						DialogController.setVisible (false);
+				} else if (AnimationUtils.animatorStateEquals (this.animatorDialog, AnimationEnum.DIALOGBOX_FADEIN)) {
+						this.SpriteRenderer.enabled = true;
+				}
+		}
 
-	public void disable ()
-	{
-		this.SpriteRenderer.enabled = false;
-	}
+		public DialogBox (List<String> dialogs)
+		{
+				this.dialogs = dialogs;
+		}
+
+		public void setDialog (List<String> dialogs)
+		{
+				this.dialogs = dialogs;
+		}
+
+		public String getDialog (int index)
+		{
+				return this.dialogs [index];
+		}
+
+		public void enable ()
+		{
+				if (AnimationUtils.animatorStateEquals (this.animatorDialog, AnimationEnum.DIALOGBOX_HIDDEN)) {
+						this.animatorDialog.SetBool (AnimatorParameterEnum.DIALOGBOX_HEROIN.name, true);
+				}
+		}
+
+		public void disable ()
+		{
+				if (AnimationUtils.animatorStateEquals (this.animatorDialog, AnimationEnum.DIALOGBOX_VISIBLE) || AnimationUtils.animatorStateEquals (this.animatorDialog, AnimationEnum.DIALOGBOX_FADEIN)) {
+						this.animatorDialog.SetBool (AnimatorParameterEnum.DIALOGBOX_HEROIN.name, false);
+				}
+		}
+
+		//Override
+		public void registerInputs ()
+		{
+				if (Input.GetButtonDown (InputEnum.ATTACK.name)) {
+						if (AnimationUtils.animatorStateEquals (this.animatorDialog, AnimationEnum.DIALOGBOX_VISIBLE) || 
+								AnimationUtils.animatorStateEquals (this.animatorDialog, AnimationEnum.DIALOGBOX_FADEIN)) {
+								StartCoroutine (DialogController.Speak (dialogs [0]));
+						}
+
+				}
+		}
+
 }
 

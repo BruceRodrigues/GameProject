@@ -12,15 +12,16 @@ public abstract class IWeapon : MonoBehaviour
 				THRUST
 		}
 
-		private int damage;
-		private int durability;
-		private int currentDurability;
-		private WeaponType type;
-		private List<Rune> runes;
+		protected int damage;
+		protected int durability;
+		protected int currentDurability;
+		protected WeaponType type;
+		protected List<Rune> runes;
 
 		protected IWeapon (int damage, int durability, WeaponType type)
 		{
-				this.damage = damage;
+//				this.damage = damage;
+				this.damage = 1;
 				this.durability = this.currentDurability = durability;
 				this.type = type;
 				this.runes = new List<Rune> ();
