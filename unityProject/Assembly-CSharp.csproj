@@ -49,6 +49,9 @@
      <Compile Include="Assets\scrips\API\ITangible.cs" />
      <Compile Include="Assets\scrips\Core\Input\CoreInput.cs" />
      <Compile Include="Assets\scrips\Core\Input\ICoreInput.cs" />
+     <Compile Include="Assets\scrips\Enemies\API\IEnemy.cs" />
+     <Compile Include="Assets\scrips\Enemies\API\Range.cs" />
+     <Compile Include="Assets\scrips\Enemies\API\Vision.cs" />
      <Compile Include="Assets\scrips\Enums\AnimationEnum.cs" />
      <Compile Include="Assets\scrips\Enums\AnimatorParameterEnum.cs" />
      <Compile Include="Assets\scrips\Enums\InputEnum.cs" />
