@@ -11,14 +11,11 @@ using System;
 public class LayerEnum
 {		
 		public static LayerEnum GROUND = new LayerEnum (8);
-<<<<<<< HEAD
 		public static LayerEnum Ladder = new LayerEnum (9);
 		public static LayerEnum BLadderGround = new LayerEnum (10);
 		public static LayerEnum TANGIBLE = new LayerEnum (11);
 		public static LayerEnum TLadderGround = new LayerEnum (12);
-=======
 		public static LayerEnum NPC = new LayerEnum (12);
->>>>>>> db4ebe4e063e834d6a4164ea884c0608d0194111
 
 		public int number;
 
