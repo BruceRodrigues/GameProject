@@ -1,5 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+<<<<<<< HEAD
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scrips\Objects\Ladder\LadderGround.cs">
     <Files>
       <File FileName="Assets\scrips\Hero\Hero.cs" Line="205" Column="2" />
@@ -9,6 +10,17 @@
       <File FileName="Assets\scrips\Weapons\API\IWeapon.cs" Line="60" Column="59" />
       <File FileName="Assets\scrips\Enums\LayerEnum.cs" Line="16" Column="3" />
       <File FileName="Assets\scrips\Objects\Ladder\LadderGround.cs" Line="20" Column="6" />
+=======
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scrips\Enemies\API\Vision.cs">
+    <Files>
+      <File FileName="Assets\scrips\Enums\AnimationEnum.cs" Line="22" Column="48" />
+      <File FileName="Assets\scrips\Utils\AnimationUtils.cs" Line="1" Column="1" />
+      <File FileName="Assets\scrips\Hero\Hero.cs" Line="47" Column="1" />
+      <File FileName="Assets\scrips\Enemies\API\IEnemy.cs" Line="30" Column="3" />
+      <File FileName="Assets\scrips\API\ITangible.cs" Line="17" Column="28" />
+      <File FileName="Assets\scrips\Enemies\API\Vision.cs" Line="37" Column="4" />
+      <File FileName="Assets\scrips\Weapons\API\IWeapon.cs" Line="58" Column="31" />
+>>>>>>> db4ebe4e063e834d6a4164ea884c0608d0194111
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
