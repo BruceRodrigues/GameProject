@@ -59,6 +59,7 @@
      <Compile Include="Assets\scrips\Hero\Hero.cs" />
      <Compile Include="Assets\scrips\NPC\API\DialogBox.cs" />
      <Compile Include="Assets\scrips\NPC\API\INPC.cs" />
+     <Compile Include="Assets\scrips\Objects\Ladder\LadderGround.cs" />
      <Compile Include="Assets\scrips\Runes\Rune.cs" />
      <Compile Include="Assets\scrips\Utils\AnimationUtils.cs" />
      <Compile Include="Assets\scrips\Weapons\API\IWeapon.cs" />

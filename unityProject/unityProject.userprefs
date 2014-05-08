@@ -1,12 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scrips\NPC\API\DialogBox.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scrips\Objects\Ladder\LadderGround.cs">
     <Files>
-      <File FileName="Assets\scrips\NPC\API\DialogBox.cs" Line="80" Column="96" />
-      <File FileName="Assets\scrips\Enums\AnimationEnum.cs" Line="28" Column="90" />
-      <File FileName="Assets\scrips\Game\GameController.cs" Line="28" Column="106" />
-      <File FileName="Assets\scrips\Game\DialogController.cs" Line="42" Column="5" />
-      <File FileName="Assets\scrips\Utils\AnimationUtils.cs" Line="26" Column="46" />
+      <File FileName="Assets\scrips\Hero\Hero.cs" Line="205" Column="2" />
+      <File FileName="Assets\scrips\API\ITangible.cs" Line="41" Column="4" />
+      <File FileName="Assets\scrips\Enums\InputEnum.cs" Line="17" Column="4" />
+      <File FileName="Assets\scrips\Weapons\ThrustWeapon.cs" Line="25" Column="1" />
+      <File FileName="Assets\scrips\Weapons\API\IWeapon.cs" Line="60" Column="59" />
+      <File FileName="Assets\scrips\Enums\LayerEnum.cs" Line="16" Column="3" />
+      <File FileName="Assets\scrips\Objects\Ladder\LadderGround.cs" Line="20" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

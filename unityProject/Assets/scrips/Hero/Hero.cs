@@ -21,6 +21,14 @@ public class Hero : ITangible, ICoreInput
 
 		private string name;
 
+		private float maxHeight;
+
+		private float tempHeight;
+
+		public Transform groundCheck;
+
+		private bool TLadderGround;
+
 		public Hero () : base(50,10)
 		{
 			
@@ -29,15 +37,17 @@ public class Hero : ITangible, ICoreInput
 		// Use this for initialization
 		public override void Start ()
 		{
-				this.animator = transform.GetComponent<Animator> ();
+				this.animator = this.GetComponentInChildren<Animator> ();
 
 				this.facingRight = true;
 
-				this.grounded = false;
+				this.grounded = true;
 		
 				this.run = false;
 
 				this.inLadder = false;
+
+				this.maxHeight = 8f;
 
 		}
 	
@@ -49,14 +59,16 @@ public class Hero : ITangible, ICoreInput
 				this.roll ();
 
 				this.jump ();
-
+				
 				this.move ();
 
 				if (this.weapon != null) {
 						this.weapon.Update ();
 				}
-
-//				this.climb ();
+				if (inLadder) {
+						tempHeight = this.transform.position.y;
+						this.climb ();
+				}
 
 		}
 
@@ -69,7 +81,7 @@ public class Hero : ITangible, ICoreInput
 						} else {
 								mult = -1;
 						}
-
+						
 						this.transform.position += new Vector3 (ROLLSPEED * mult, 0, 0);
 						this.transform.collider2D.isTrigger = true;
 				} else {
@@ -78,9 +90,16 @@ public class Hero : ITangible, ICoreInput
 		}
 
 		private void jump ()
-		{
-				if (AnimationUtils.animatorStateEquals (this.animator, AnimationEnum.HERO_JUMPING)) {
+		{				
+				if (AnimationUtils.animatorStateEquals (this.animator, AnimationEnum.HERO_JUMPING)) {						
 						this.transform.position += new Vector3 (0, this.JUMPSPEED, 0);
+						grounded = false;
+				} else if (grounded == false) {
+						this.transform.position += new Vector3 (0, -this.JUMPSPEED, 0);
+						if ((this.transform.position.y) <= tempHeight) {
+								this.transform.position = new Vector3 (this.transform.position.x, tempHeight, this.transform.position.y);
+								grounded = true;
+						}
 				}
 		}
 
@@ -104,12 +123,8 @@ public class Hero : ITangible, ICoreInput
 						} else {
 								this.flip ();
 						}
-				}
-					
-				if (Input.GetKeyUp (KeyCode.RightArrow) || Input.GetKeyUp (KeyCode.LeftArrow)) {
-						run = false;
-				}
-				
+				} 
+
 				this.transform.position += new Vector3 (RUNSPEED * mult, 0, 0);			 				
 
 				this.animator.SetBool (AnimatorParameterEnum.RUN.name, run);
@@ -126,22 +141,20 @@ public class Hero : ITangible, ICoreInput
 		private void climb ()
 		{	
 				int mult = 0;
-				if (this.inLadder) {
+				TLadderGround = Physics2D.Linecast (this.transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("TLadderGround"));
 				
-						if (Input.GetKey (KeyCode.DownArrow)) {
-								if (!grounded)
-										mult = -1;
-						} else if (Input.GetKey (KeyCode.UpArrow)) {
-								mult = 1;
-						}
-
-						this.transform.position += new Vector3 (0, RUNSPEED * mult, 0);
+				if (Input.GetKey (KeyCode.DownArrow) && (TLadderGround)) {
+						mult = -1;
+				} else if (Input.GetKey (KeyCode.UpArrow)) {
+						mult = 1;
 				}
+
+				this.transform.position += new Vector3 (0, RUNSPEED * mult, 0);
+				
 		}
 
 		void OnTriggerEnter2D (Collider2D coll)
 		{
-
 				Debug.Log ("TRIGGER");
 				if (coll.gameObject.tag == TagEnum.LADDER.name) {
 						inLadder = true;
@@ -172,10 +185,11 @@ public class Hero : ITangible, ICoreInput
 				}
 
 				//Jump
-				if (Input.GetButtonDown (InputEnum.JUMP.name)) {
+				if (Input.GetButtonDown (InputEnum.JUMP.name) && grounded == true) {
+						tempHeight = transform.position.y;
 						this.animator.SetTrigger (AnimatorParameterEnum.JUMP.name);
 				}
-				
+
 				//Attack
 				if (Input.GetButtonDown (InputEnum.ATTACK.name)) {
 						this.animator.SetTrigger (AnimatorParameterEnum.ATTACK.name);
