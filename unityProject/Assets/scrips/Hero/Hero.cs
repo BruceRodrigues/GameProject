@@ -15,7 +15,7 @@ public class Hero : ITangible, ICoreInput
 			
 		private bool run;
 
-		private bool inLadder; 
+		public bool inLadder; 
 
 		private Animator animator;
 
@@ -25,9 +25,9 @@ public class Hero : ITangible, ICoreInput
 
 		private float tempHeight;
 
-		public Transform groundCheck;
-
-		private bool TLadderGround;
+		public bool topLadderGround;
+		
+		public bool baseLadderGround;
 
 		public Hero () : base(50,10)
 		{
@@ -58,9 +58,15 @@ public class Hero : ITangible, ICoreInput
 
 				this.roll ();
 
-				this.jump ();
+				if (!inLadder) {
+						this.jump ();
+				}
 				
-				this.move ();
+				if ((!inLadder) || (topLadderGround) || (baseLadderGround)) {
+						this.move ();
+				} else {
+						this.animator.SetBool (AnimatorParameterEnum.RUN.name, false);
+				}
 
 				if (this.weapon != null) {
 						this.weapon.Update ();
@@ -97,7 +103,7 @@ public class Hero : ITangible, ICoreInput
 				} else if (grounded == false) {
 						this.transform.position += new Vector3 (0, -this.JUMPSPEED, 0);
 						if ((this.transform.position.y) <= tempHeight) {
-								this.transform.position = new Vector3 (this.transform.position.x, tempHeight, this.transform.position.y);
+								this.transform.position = new Vector3 (this.transform.position.x, tempHeight, 0);
 								grounded = true;
 						}
 				}
@@ -140,41 +146,22 @@ public class Hero : ITangible, ICoreInput
 
 		private void climb ()
 		{	
-				int mult = 0;
-				TLadderGround = Physics2D.Linecast (this.transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("TLadderGround"));
+				int mult = 0;				
 				
-				if (Input.GetKey (KeyCode.DownArrow) && (TLadderGround)) {
-						mult = -1;
-				} else if (Input.GetKey (KeyCode.UpArrow)) {
-						mult = 1;
+				
+				if (!baseLadderGround) {
+						if (Input.GetKey (KeyCode.DownArrow)) {
+								mult = -1;
+						} 
+				}		
+				if (!topLadderGround) {
+						if (Input.GetKey (KeyCode.UpArrow)) {
+								mult = 1;
+						}
 				}
-
 				this.transform.position += new Vector3 (0, RUNSPEED * mult, 0);
 				
-		}
-
-		void OnTriggerEnter2D (Collider2D coll)
-		{
-				Debug.Log ("TRIGGER");
-				if (coll.gameObject.tag == TagEnum.LADDER.name) {
-						inLadder = true;
-				}
-
-				if (coll.gameObject.tag == TagEnum.GROUND.name) {
-						grounded = true;
-				}
-		}
-
-		void OnTriggerExit2D (Collider2D coll)
-		{
-				if (coll.gameObject.tag == TagEnum.LADDER.name) {
-						inLadder = false;
-				}
-
-				if (coll.gameObject.tag == TagEnum.GROUND.name) {
-						grounded = false;
-				}
-		}
+		}		
 
 		//Override
 		public void registerInputs ()
@@ -200,6 +187,7 @@ public class Hero : ITangible, ICoreInput
 		{
 				if (!AnimationUtils.animatorStateEquals (this.animator, AnimationEnum.HERO_ROLLING)) {
 						base.hit (damage);
+						
 				}
 		}
 }
