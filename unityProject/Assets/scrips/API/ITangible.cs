@@ -6,6 +6,7 @@ public abstract class ITangible : MonoBehaviour
 		protected int hp;
 		protected int damage;
 		protected IWeapon weapon;
+		protected bool facingRight;
 
 		public ITangible (int hp, int damage)
 		{
@@ -38,6 +39,14 @@ public abstract class ITangible : MonoBehaviour
 
 		public virtual void Start ()
 		{
+		}
+
+		protected void flip ()
+		{
+				this.facingRight = !this.facingRight;
+				Vector3 scale = transform.localScale;
+				scale.x *= -1;
+				this.transform.localScale = scale;
 		}
 
 		public abstract void Update ();

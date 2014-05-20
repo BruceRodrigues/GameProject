@@ -9,8 +9,6 @@ public class Hero : ITangible, ICoreInput
 
 		private readonly float JUMPSPEED = 0.05f;
 
-		private bool facingRight;
-
 		private bool grounded;
 			
 		private bool run;
@@ -130,14 +128,6 @@ public class Hero : ITangible, ICoreInput
 				this.animator.SetBool (AnimatorParameterEnum.RUN.name, run);
 		}
 
-		private void flip ()
-		{
-				this.facingRight = !this.facingRight;
-				Vector3 scale = transform.localScale;
-				scale.x *= -1;
-				this.transform.localScale = scale;
-		}
-
 		private void climb ()
 		{	
 				int mult = 0;
@@ -167,6 +157,7 @@ public class Hero : ITangible, ICoreInput
 
 		void OnTriggerExit2D (Collider2D coll)
 		{
+				Debug.Log ("EXIT");
 				if (coll.gameObject.tag == TagEnum.LADDER.name) {
 						inLadder = false;
 				}

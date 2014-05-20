@@ -17,9 +17,6 @@ public class Vision : MonoBehaviour
 
 		private bool aggro;
 
-		private Range range;
-
-
 		public Vision ()
 		{
 				this.aggro = false;
@@ -33,20 +30,17 @@ public class Vision : MonoBehaviour
 
 		public void Start ()
 		{
-				this.range = this.GetComponentInChildren<Range> ();
 		}
 
 		public void OnTriggerEnter2D (Collider2D coll)
 		{
 				if (coll.gameObject.tag == TagEnum.HERO.name) {
-						Debug.Log ("TE VI" + coll.gameObject.tag);
 						this.aggro = true;
 				}
 		}
 
 		public void OnTriggerExit2D (Collider2D coll)
 		{
-				Debug.Log ("NAO TE VI");
 				if (coll.gameObject.tag == TagEnum.HERO.name) {
 						this.aggro = false;
 				}
@@ -56,13 +50,6 @@ public class Vision : MonoBehaviour
 		{
 				return this.aggro;
 		}
-
-		public bool canReach ()
-		{
-				return this.range.canReach ();
-		}
-
-
 
 }
 

@@ -20,12 +20,17 @@ public class IEnemy : ITangible
 
 		public Transform heroPosition;
 
+		private const double RANGE = 1;
+
+		private const double FLIPOFFSET = 0.2;
+
 		public IEnemy (int hp, int damage) : base (50, 10)
 		{
 		}
 
 		public override void Start ()
 		{
+				this.facingRight = false;
 				this.passive = false;
 				this.vision = this.GetComponentInChildren<Vision> ();
 				this.animator = this.GetComponent<Animator> ();
@@ -35,11 +40,20 @@ public class IEnemy : ITangible
 		{
 				if (this.vision.isAggro () && !this.passive) {
 						this.aggro (true);
-				} else if (this.vision.canReach () && !this.passive) {
-						this.attack (true);
+						if ((Math.Abs (heroPosition.position.x) - Math.Abs (this.transform.position.x)) <= RANGE) {
+								this.attack (true);
+						} else {
+								this.attack (false);
+						}
+
+						if (this.heroPosition.position.x > this.transform.position.x + FLIPOFFSET && !this.facingRight) {
+								this.flip ();
+						} else if (this.heroPosition.position.x < this.transform.position.x + FLIPOFFSET && this.facingRight) {
+								this.flip ();
+						}
+
 				} else {
 						this.aggro (false);
-						this.attack (false);
 				}
 
 				this.followHero ();
