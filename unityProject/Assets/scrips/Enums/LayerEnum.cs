@@ -16,6 +16,7 @@ public class LayerEnum
 		public static LayerEnum TANGIBLE = new LayerEnum (11);
 		public static LayerEnum TLadderGround = new LayerEnum (12);
 		public static LayerEnum NPC = new LayerEnum (12);
+		public static LayerEnum GrondCheck = new LayerEnum (13);
 
 		public int number;
 
