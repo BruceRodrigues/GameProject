@@ -1,3 +1,5 @@
 Thumbs.db
 unityProject/Library/
 unityProject/Temp/
+*.sln
+*.userprefs
