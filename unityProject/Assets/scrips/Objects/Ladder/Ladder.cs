@@ -20,8 +20,7 @@ public class Ladder : MonoBehaviour
 		{
 				if (coll.gameObject.layer == LayerEnum.TANGIBLE.number) {
 						Hero hero = Collider2D.FindObjectOfType<Hero> ();
-						hero.inLadder = true;			
-						Debug.Log ("OnLadder");	
+						hero.inLadder = true;
 				}
 		}
 		void OnTriggerExit2D (Collider2D coll)
@@ -29,7 +28,6 @@ public class Ladder : MonoBehaviour
 				if (coll.gameObject.layer == LayerEnum.TANGIBLE.number) {
 						Hero hero = Collider2D.FindObjectOfType<Hero> ();
 						hero.inLadder = false;
-						Debug.Log ("OutLadder");
 			
 				}
 		

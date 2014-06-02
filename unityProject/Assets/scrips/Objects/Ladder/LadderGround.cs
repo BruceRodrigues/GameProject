@@ -29,10 +29,6 @@ public class LadderGround : MonoBehaviour
 						if (ladderGround.layer == LayerEnum.BLadderGround.number) {
 								hero.baseLadderGround = true;
 						}
-						
-
-						
-						Debug.Log ("OnLadderGround");	
 				}
 		}
 
@@ -48,8 +44,6 @@ public class LadderGround : MonoBehaviour
 						if (ladderGround.layer == LayerEnum.BLadderGround.number) {
 								hero.baseLadderGround = false;
 						}
-						
-						Debug.Log ("OutLadderGround");	
 				}
 		
 		}

@@ -7,9 +7,11 @@ public class Hero : ITangible, ICoreInput
 
 		private readonly float ROLLSPEED = 0.04f;
 
-		private readonly float JUMPSPEED = 0.05f;
+		private readonly float JUMPSPEED = 7.5f;
 
-		private bool grounded;
+		public bool goJump;
+
+		public bool grounded;
 			
 		private bool run;
 
@@ -21,11 +23,12 @@ public class Hero : ITangible, ICoreInput
 
 		private float maxHeight;
 
-		private float tempHeight;
-
 		public bool topLadderGround;
 		
 		public bool baseLadderGround;
+		
+		private Transform groundCheck;
+
 
 		public Hero () : base(50,10)
 		{
@@ -34,11 +37,15 @@ public class Hero : ITangible, ICoreInput
 
 		// Use this for initialization
 		public override void Start ()
-		{
+		{		
+				groundCheck = transform.Find ("GroundCheck");
+
 				this.animator = this.GetComponentInChildren<Animator> ();
 
 				this.facingRight = true;
 
+				this.goJump = false;	
+			
 				this.grounded = true;
 		
 				this.run = false;
@@ -52,15 +59,23 @@ public class Hero : ITangible, ICoreInput
 		// Update is called once per frame
 		public override void Update ()
 		{
+		
+				grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
+
+				if (grounded) {
+						goJump = false;
+				}
+			
 				this.registerInputs ();
 
 				this.roll ();
-
-				if (!inLadder) {
+				
+				if ((!inLadder) && (goJump) && (grounded)) {								
 						this.jump ();
 				}
 				
-				if ((!inLadder) || (topLadderGround) || (baseLadderGround)) {
+				if ((!inLadder) || (topLadderGround) || (baseLadderGround) || (goJump)) {
+						transform.rigidbody2D.gravityScale = 1;
 						this.move ();
 				} else {
 						this.animator.SetBool (AnimatorParameterEnum.RUN.name, false);
@@ -69,11 +84,14 @@ public class Hero : ITangible, ICoreInput
 				if (this.weapon != null) {
 						this.weapon.Update ();
 				}
-				if (inLadder) {
-						tempHeight = this.transform.position.y;
+				
+				grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
+
+				if (inLadder && !goJump) {
+						transform.rigidbody2D.gravityScale = 0;
+						transform.rigidbody2D.velocity = Vector2.zero;
 						this.climb ();
 				}
-
 		}
 
 		private void roll ()
@@ -86,7 +104,7 @@ public class Hero : ITangible, ICoreInput
 								mult = -1;
 						}
 						
-						this.transform.position += new Vector3 (ROLLSPEED * mult, 0, 0);
+						this.transform.position += new Vector3 (ROLLSPEED * mult, 0, 0) * Time.deltaTime;
 						this.transform.collider2D.isTrigger = true;
 				} else {
 						this.transform.collider2D.isTrigger = false;
@@ -94,17 +112,12 @@ public class Hero : ITangible, ICoreInput
 		}
 
 		private void jump ()
-		{				
-				if (AnimationUtils.animatorStateEquals (this.animator, AnimationEnum.HERO_JUMPING)) {						
-						this.transform.position += new Vector3 (0, this.JUMPSPEED, 0);
-						grounded = false;
-				} else if (grounded == false) {
-						this.transform.position += new Vector3 (0, -this.JUMPSPEED, 0);
-						if ((this.transform.position.y) <= tempHeight) {
-								this.transform.position = new Vector3 (this.transform.position.x, tempHeight, 0);
-								grounded = true;
-						}
-				}
+		{		
+				grounded = false;
+				AnimationUtils.animatorStateEquals (this.animator, AnimationEnum.HERO_JUMPING);						
+				this.rigidbody2D.velocity = new Vector2 (0, 1) * JUMPSPEED;
+				
+				
 		}
 
 		private void move ()
@@ -136,8 +149,7 @@ public class Hero : ITangible, ICoreInput
 
 		private void climb ()
 		{	
-				int mult = 0;				
-				
+				int mult = 0;	
 				
 				if (!baseLadderGround) {
 						if (Input.GetKey (KeyCode.DownArrow)) {
@@ -162,7 +174,7 @@ public class Hero : ITangible, ICoreInput
 
 				//Jump
 				if (Input.GetButtonDown (InputEnum.JUMP.name) && grounded == true) {
-						tempHeight = transform.position.y;
+						goJump = true;
 						this.animator.SetTrigger (AnimatorParameterEnum.JUMP.name);
 				}
 
